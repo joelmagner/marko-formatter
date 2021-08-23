@@ -1,0 +1,97 @@
+{
+	"name": "marko-formatter",
+	"displayName": "Marko5 Formatter",
+	"description": "Marko5 Code Formatter",
+	"version": "0.0.9",
+	"publisher": "MagnerJoel",
+	"author": "Joel Magnér",
+	"repository": {
+		"url": "https://www.github.com/joelmagner/marko-formatter/",
+		"type": "git"
+	},
+	"icon": "media/marko.png",
+	"engines": {
+		"vscode": "^1.59.0"
+	},
+	"categories": [
+		"Formatters",
+		"Programming Languages",
+		"Other"
+	],
+	"activationEvents": [
+		"onLanguage:marko"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "marko",
+				"aliases": [
+					"Marko"
+				],
+				"extensions": [
+					"marko"
+				]
+			}
+		],
+		"configuration": {
+			"title": "Marko Formatter",
+			"properties": {
+				"marko.formatter.eol": {
+					"description": "The EOL sequence.",
+					"type": "string",
+					"default": "\n"
+				},
+				"marko.formatter.indent": {
+					"description": "The indent string.",
+					"type": "string",
+					"default": "  "
+				},
+				"marko.formatter.maxLen": {
+					"description": "The max line length (defaults to 80, set to -1 to disable)",
+					"type": "number",
+					"default": -1
+				},
+				"marko.formatter.configFiles": {
+					"description": "Should search for .marko-prettyprint/.editorconfig files? (defaults to true)",
+					"type": "string",
+					"default": true
+				},
+				"marko.formatter.syntax": {
+					"description": "The syntax to use; either \"html\" or \"concise\".",
+					"type": "string",
+					"enum": [
+						"html",
+						"concise"
+					],
+					"default": "html"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js",
+		"vscode:prepublish": "npm run esbuild-base -- --minify",
+		"esbuild-base": "esbuild ./extension.js --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node"
+	},
+	"dependencies": {
+		"@marko/prettyprint": "^3.0.1",
+		"object-assign": "^4.1.1"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.2.2",
+		"@types/node": "14.x",
+		"@types/vscode": "^1.59.0",
+		"esbuild": "^0.12.22",
+		"eslint": "^7.27.0",
+		"glob": "^7.1.7",
+		"mocha": "^8.4.0",
+		"typescript": "^4.3.2",
+		"vscode-test": "^1.5.2",
+		"webpack": "^5.51.1",
+		"webpack-cli": "^4.8.0"
+	}
+}
